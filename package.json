@@ -1,0 +1,9 @@
+{
+  "name": "SocketChat",
+  "description": "Socket IO Chat Server And Client",
+  "author": "Christopher Somers <christopher.somers1995@gmail.com>",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*"
+  }
+}
