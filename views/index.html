@@ -6,100 +6,33 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Title Page</title>
 		
-
-		<style>	
-			#conversation {
-				width: 100%;
-				min-height: 500px;
-			}
-
-			#right {
-				border: 1px solid black;
-			}
-
-			#left {
-				border: 1px solid black;
-			}
-		</style>
 		<!-- Bootstrap CSS -->
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://cdn.socket.io/socket.io-1.2.1.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/main.css">
+		<script src="js/main.js"></script>
 	</head>
 	<body>
-			
-			<script>
-				var socket = io.connect('http://localhost:3000');
-		
-				socket.on('connect', function(){
-					var username = prompt("What's your name?");
-
-					socket.emit('adduser', username);
-
-					$('#users').append('<div>' + username + '</div>');
-				});
-		
-				socket.on('updatechat', function (username, data) {
-					$('#conversation').append('<b>'+username + ':</b> ' + data + '<br>');
-				});
-
-				socket.on('updatepeople', function(username) {
-					$('#users').append('<div>' + username + '</div>');
-				});
-		
-				// listener, whenever the server emits 'updaterooms', this updates the room the client is in
-				socket.on('updaterooms', function(rooms, current_room) {
-					$('#rooms').empty();
-					$.each(rooms, function(key, value) {
-						if(value == current_room){
-							$('#rooms').append('<div>' + value + '</div>');
-						}
-						else {
-							$('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
-						}
-						
-					});
-
-				});
-		
-				function switchRoom(room){
-					socket.emit('switchRoom', room);
-				}
-		
-				$(function(){
-					$('#datasend').click( function() {
-						var message = $('#data').val();
-						$('#data').val('');
-						
-						if( !(message === '' ) ){
-							socket.emit('sendchat', message);
-						}
-					});
-		
-					$('#data').keypress(function(e) {
-						if(e.which == 13) {
-							$(this).blur();
-							$('#datasend').focus().click();
-						}
-					});
-				});
-		
-			</script>
-			
+					
 
 			<div class="container">	
 				<div class="row">	
 					<div id="left" class="col-sm-2 col-md-3 col-lg-4">
 						<b>Rooms</b>
 						<div id="rooms"></div>
-						<b>Users Online</b><br>
-						<div id="users"></div>
 					</div>
 
 					<div id="right" class="col-sm-10 col-md-9 col-lg-8">
 						<div id="conversation"></div>
-						<input type="text" id="data"/>
-						<input class="btn btn-success" value="send" type="button" id="datasend">
+						<div id="send">
+							<div class="input-group">
+						      <input type="text" id="data" class="form-control">
+						      <span class="input-group-btn">
+						        <button id="datasend" class="btn btn-default" type="button">Send</button>
+						      </span>
+						    </div><!-- /input-group -->
+						</div>
 					</div>
 
 					

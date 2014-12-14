@@ -1,0 +1,26 @@
+#left {
+	border-left: 1px solid black;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	min-height: 250px;
+}
+
+#right {
+	border: 1px solid black;
+}
+
+#conversation {
+	min-height: 500px;
+}
+
+#send {
+	padding-bottom : 10px;
+}
+
+#msg {
+	margin: 5px;
+	border-radius: 10px;
+	color: black;
+	border: 1px solid #C2EBFF;
+	background-color: #C2EBFF;
+}
